@@ -40,18 +40,14 @@ class Coffee_Break {
 	 * @return array
 	 */
 	public function get_humans() {
-
-		$query_args = [
+		$human_query  = new WP_Query( [
 			'post_type' => self::POST_TYPE_HUMAN,
-		];
-
-		$posts_query  = new WP_Query();
-		$query_result = $posts_query->query( $query_args );
+		] );
 
 		$humans = [];
 
 		/** @var \WP_Post $human */
-		foreach ( $query_result as $human ) {
+		foreach ( $human_query->posts as $human ) {
 			$humans[] = [
 				'ID'           => $human->ID,
 				'username'     => $human->post_name,
@@ -70,15 +66,15 @@ class Coffee_Break {
 			self::POST_TYPE_HUMAN,
 			[
 				'labels'     => [
-					'name'          => __( 'Humans', 'usat' ),
-					'singular_name' => __( 'Human', 'usat' ),
-					'add_new_item'  => __( 'Add New Human', 'usat' ),
-					'edit_item'     => __( 'Edit Human', 'usat' ),
-					'new_item'      => __( 'New Human', 'usat' ),
-					'view_item'     => __( 'View Human', 'usat' ),
-					'search_items'  => __( 'Search Humans', 'usat' ),
-					'not_found'     => __( 'No humans found', 'usat' ),
-					'all_items'     => __( 'All Humans', 'usat' ),
+					'name'          => __( 'Humans', 'coffee' ),
+					'singular_name' => __( 'Human', 'coffee' ),
+					'add_new_item'  => __( 'Add New Human', 'coffee' ),
+					'edit_item'     => __( 'Edit Human', 'coffee' ),
+					'new_item'      => __( 'New Human', 'coffee' ),
+					'view_item'     => __( 'View Human', 'coffee' ),
+					'search_items'  => __( 'Search Humans', 'coffee' ),
+					'not_found'     => __( 'No humans found', 'coffee' ),
+					'all_items'     => __( 'All Humans', 'coffee' ),
 				],
 				'public'     => false,
 				'show_ui'    => true,
