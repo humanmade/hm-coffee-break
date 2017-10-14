@@ -99,6 +99,7 @@ class Coffee_Break {
 				'public'     => false,
 				'show_ui'    => true,
 				'rewrite'    => false,
+				'menu_icon'  => 'dashicons-smiley',
 				'supports'   => [],
 				'taxonomies' => [],
 			]
