@@ -62,7 +62,7 @@ class Coffee_Break {
 	 */
 	public function action_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['human_meta_box_nonce'] ) ||
-		     ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
+			 ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
 			return;
 		}
 
@@ -135,7 +135,6 @@ class Coffee_Break {
 
 	}
 
-
 	/**
 	 * Register Action for Human Custom Post Type.
 	 */
@@ -157,6 +156,7 @@ class Coffee_Break {
 				'public'               => false,
 				'show_ui'              => true,
 				'rewrite'              => false,
+				'menu_icon'            => 'dashicons-smiley',
 				'supports'             => [],
 				'taxonomies'           => [],
 				'register_meta_box_cb' => [ $this, 'action_register_human_meta_boxes' ]
