@@ -9,6 +9,8 @@
  * @package hm-coffee-break
  */
 
+require_once( __DIR__ . '/inc/slack.php' );
+
 class Coffee_Break {
 
 	const POST_TYPE_HUMAN = 'human';
