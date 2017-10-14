@@ -3,7 +3,7 @@
  * Plugin Name: CoffeeBreak
  * Plugin URI: https://github.com/humanmade/hm-coffee-break
  * Description: Human Made Roulette
- * Version: 0.0.1
+ * Version: 0.1.0
  * Author: Human Made
  *
  * @package hm-coffee-break
