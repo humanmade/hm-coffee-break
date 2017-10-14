@@ -16,7 +16,6 @@ class Coffee_Break {
 	const COFFEE_BREAK_BOT_TOKEN = 'xoxb-257455469751-OdZe7IsybZalrtaTOM9rslkB';
 
 	public function __construct() {
-
 		// Initiate REST Endpoint.
 		add_action( 'rest_api_init', [ $this, 'action_register_endpoints' ] );
 
