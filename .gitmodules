@@ -1,3 +1,6 @@
 [submodule "slackbot"]
 	path = slackbot
 	url = git@github.com:humanmade/Slackbot.git
+[submodule "plugins/slackbot"]
+	path = plugins/slackbot
+	url = git@github.com:humanmade/Slackbot.git
