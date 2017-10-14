@@ -36,12 +36,12 @@ class Coffee_Break {
 		add_meta_box( 'human-timezone', __( 'Human Timezone', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_timezone'
-		], self::POST_TYPE_HUMAN, 'side', 'default' );
+		], self::POST_TYPE_HUMAN, 'normal', 'default' );
 
 		add_meta_box( 'human-availability', __( 'Human Availability', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_availability'
-		], self::POST_TYPE_HUMAN, 'side', 'default' );
+		], self::POST_TYPE_HUMAN, 'normal', 'default' );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Coffee_Break {
 	public function get_timezone_for_human( int $human_id ) {
 		$timezone = get_post_meta( $human_id, 'human_timezone', true );
 
-		return (array) $timezone;
+		return $timezone;
 	}
 
 	/**
@@ -273,7 +273,7 @@ class Coffee_Break {
 				'show_ui'              => true,
 				'rewrite'              => false,
 				'menu_icon'            => 'dashicons-smiley',
-				'supports'             => [],
+				'supports'             => [ 'title' ],
 				'taxonomies'           => [],
 				'register_meta_box_cb' => [ $this, 'action_register_human_meta_boxes' ]
 			]
