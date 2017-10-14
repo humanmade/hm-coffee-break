@@ -16,7 +16,6 @@ class Coffee_Break {
 	const COFFEE_BREAK_BOT_TOKEN = 'xoxb-257455469751-OdZe7IsybZalrtaTOM9rslkB';
 
 	public function __construct() {
-
 		// Initiate REST Endpoint.
 		add_action( 'rest_api_init', [ $this, 'action_register_endpoints' ] );
 
@@ -57,6 +56,27 @@ class Coffee_Break {
 
 		return $humans;
 	}
+
+	public function get_available_hours_for_human( int $human_id ) {
+
+	}
+
+	public function set_available_hours_for_human( int $human_id, array $available_times ) {
+
+	}
+
+	public function get_matching_humans_for_human( int $human_id ) {
+
+	}
+
+	public function set_human_has_met_human( array $human_id ) {
+
+	}
+
+	public function set_human_has_cancelled( int $canceler_human_id, int $canceled_human_id ) {
+
+	}
+
 
 	/**
 	 * Register Action for Human Custom Post Type.
