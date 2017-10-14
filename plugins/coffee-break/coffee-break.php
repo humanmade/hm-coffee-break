@@ -38,7 +38,7 @@ class Coffee_Break {
 			'meta_box_timezone'
 		], self::POST_TYPE_HUMAN, 'side', 'default' );
 
-		add_meta_box( 'human-availability', __( 'Human Availability' ), [
+		add_meta_box( 'human-availability', __( 'Human Availability', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_availability'
 		], self::POST_TYPE_HUMAN, 'side', 'default' );
