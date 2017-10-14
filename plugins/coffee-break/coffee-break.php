@@ -5,6 +5,7 @@
  * Description: Human Made Roulette
  * Version: 0.1.0
  * Author: Human Made
+ * Text Domain: hm-coffee-break
  *
  * @package hm-coffee-break
  */
@@ -32,7 +33,7 @@ class Coffee_Break {
 	 * Action to Register Meta Boxes for Humans CPT.
 	 */
 	public function action_register_human_meta_boxes() {
-		add_meta_box( 'human-timezone', __( 'Human Timezone' ), [
+		add_meta_box( 'human-timezone', __( 'Human Timezone', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_timezone'
 		], self::POST_TYPE_HUMAN, 'side', 'default' );
@@ -145,15 +146,15 @@ class Coffee_Break {
 			self::POST_TYPE_HUMAN,
 			[
 				'labels'               => [
-					'name'          => __( 'Humans' ),
-					'singular_name' => __( 'Human' ),
-					'add_new_item'  => __( 'Add New Human' ),
-					'edit_item'     => __( 'Edit Human' ),
-					'new_item'      => __( 'New Human' ),
-					'view_item'     => __( 'View Human' ),
-					'search_items'  => __( 'Search Humans' ),
-					'not_found'     => __( 'No humans found' ),
-					'all_items'     => __( 'All Humans' ),
+					'name'          => __( 'Humans', 'hm-coffee-break' ),
+					'singular_name' => __( 'Human', 'hm-coffee-break' ),
+					'add_new_item'  => __( 'Add New Human', 'hm-coffee-break' ),
+					'edit_item'     => __( 'Edit Human', 'hm-coffee-break' ),
+					'new_item'      => __( 'New Human', 'hm-coffee-break' ),
+					'view_item'     => __( 'View Human', 'hm-coffee-break' ),
+					'search_items'  => __( 'Search Humans', 'hm-coffee-break' ),
+					'not_found'     => __( 'No humans found', 'hm-coffee-break' ),
+					'all_items'     => __( 'All Humans', 'hm-coffee-break' ),
 				],
 				'public'               => false,
 				'show_ui'              => true,
