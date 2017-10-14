@@ -22,7 +22,9 @@ class Coffee_Break {
 		add_action( 'init', [ $this, 'action_register_custom_post_type' ] );
 	}
 
-
+	/**
+	 * Action to Register API endpoints.
+	 */
 	public function action_register_endpoints() {
 		register_rest_route( 'coffeebreak', '/humans/', [
 			'methods'  => WP_REST_SERVER::READABLE,
