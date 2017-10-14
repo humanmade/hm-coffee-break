@@ -21,6 +21,63 @@ class Coffee_Break {
 
 		// Register Custom Post Type.
 		add_action( 'init', [ $this, 'action_register_custom_post_type' ] );
+
+		// Save Meta Box Data.
+		add_action( 'save_post_human', [ $this, 'action_save_meta_box_data' ], 10, 2 );
+	}
+
+	/**
+	 * Action to Register Meta Boxes for Humans CPT.
+	 */
+	public function action_register_human_meta_boxes() {
+		add_meta_box( 'human-timezone', __( 'Human Timezone' ), [
+			$this,
+			'meta_box_timezone'
+		], self::POST_TYPE_HUMAN, 'side', 'default' );
+	}
+
+	/**
+	 * HTML Output for TimeZone Meta Box.
+	 */
+	public function meta_box_timezone() {
+		$human_timezone = get_post_meta( get_the_ID(), 'human_timezone', true );
+
+		$timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
+
+		wp_nonce_field( basename( __FILE__ ), 'human_meta_box_nonce' );
+
+		echo '<select name="human-timezone">';
+
+		foreach ( $timezones as $timezone ) {
+			echo '<option ' . selected( $human_timezone, $timezone ) . '>' . $timezone . '</option>';
+		}
+
+		echo '</select>';
+	}
+
+	/**
+	 * Action for Saving Meta Box data.
+	 *
+	 * @param $post_id
+	 */
+	public function action_save_meta_box_data( $post_id ) {
+		if ( ! isset( $_POST['human_meta_box_nonce'] ) ||
+		     ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+
+		if ( isset( $_POST['human-timezone'] ) ) {
+			update_post_meta( $post_id, 'human_timezone', wp_filter_post_kses( $_POST['human-timezone'] ) );
+		}
 	}
 
 	/**
@@ -50,7 +107,8 @@ class Coffee_Break {
 			$humans[] = [
 				'ID'           => $human->ID,
 				'username'     => $human->post_name,
-				'user_created' => $human->post_date_gmt
+				'user_created' => $human->post_date_gmt,
+				'timezone'     => get_post_meta( $human->ID, 'human_timezone', true ),
 			];
 		}
 
@@ -85,23 +143,23 @@ class Coffee_Break {
 		register_post_type(
 			self::POST_TYPE_HUMAN,
 			[
-				'labels'     => [
-					'name'          => __( 'Humans', 'coffee' ),
-					'singular_name' => __( 'Human', 'coffee' ),
-					'add_new_item'  => __( 'Add New Human', 'coffee' ),
-					'edit_item'     => __( 'Edit Human', 'coffee' ),
-					'new_item'      => __( 'New Human', 'coffee' ),
-					'view_item'     => __( 'View Human', 'coffee' ),
-					'search_items'  => __( 'Search Humans', 'coffee' ),
-					'not_found'     => __( 'No humans found', 'coffee' ),
-					'all_items'     => __( 'All Humans', 'coffee' ),
+				'labels'               => [
+					'name'          => __( 'Humans' ),
+					'singular_name' => __( 'Human' ),
+					'add_new_item'  => __( 'Add New Human' ),
+					'edit_item'     => __( 'Edit Human' ),
+					'new_item'      => __( 'New Human' ),
+					'view_item'     => __( 'View Human' ),
+					'search_items'  => __( 'Search Humans' ),
+					'not_found'     => __( 'No humans found' ),
+					'all_items'     => __( 'All Humans' ),
 				],
-				'public'     => false,
-				'show_ui'    => true,
-				'rewrite'    => false,
-				'menu_icon'  => 'dashicons-smiley',
-				'supports'   => [],
-				'taxonomies' => [],
+				'public'               => false,
+				'show_ui'              => true,
+				'rewrite'              => false,
+				'supports'             => [],
+				'taxonomies'           => [],
+				'register_meta_box_cb' => [ $this, 'action_register_human_meta_boxes' ]
 			]
 		);
 	}
