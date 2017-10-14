@@ -91,7 +91,16 @@ class Coffee_Break {
 	}
 
 	/**
-	 * API callback for /coffeebreak/humans/
+	 * Create human endpoint.
+	 *
+	 * @TODO: Create Human (no auth for now).
+	 */
+	public function create_human() {
+
+	}
+
+	/**
+	 * API callback for GET /coffeebreak/humans/
 	 *
 	 * @return array
 	 */
@@ -115,22 +124,98 @@ class Coffee_Break {
 		return $humans;
 	}
 
+	/**
+	 * Update Human.
+	 *
+	 * @TODO: Update Human exposed fields (timezone, available hours, etc.)
+	 */
+	public function update_human() {
+
+	}
+
+	/**
+	 * Delete Human.
+	 *
+	 * @TODO: Delete Human (no auth for now).
+	 */
+	public function delete_human() {
+
+	}
+
+	/**
+	 * Get TimeZone for Human.
+	 *
+	 * @TODO: Get plaintext timezone for Human.
+	 *
+	 * @param int $human_id
+	 */
+	public function get_timezone_for_human( int $human_id ) {
+	}
+
+	/**
+	 * Set TimeZone for Human.
+	 *
+	 * @TODO: Set plaintext timezone for Human (E.G. Africa/Dijibouti)
+	 *
+	 * @param int $human_id
+	 * @param string $timezone
+	 */
+	public function set_timezone_for_human( int $human_id, string $timezone ) {
+	}
+
+	/**
+	 * Get available hours for Human.
+	 *
+	 * @TODO: Return the array of availabity hours.
+	 *
+	 * @param int $human_id
+	 */
 	public function get_available_hours_for_human( int $human_id ) {
 
 	}
 
+	/**
+	 * Set available hours for Human.
+	 *
+	 * @TODO: A list of FROM - TO times of availability. For now, we assume that the Human is working Monday - Friday.
+	 *
+	 * @param int $human_id
+	 * @param array $available_times
+	 */
 	public function set_available_hours_for_human( int $human_id, array $available_times ) {
 
 	}
 
+	/**
+	 * Get matching Humans for Human ID.
+	 *
+	 * @TODO: Build matching algorithm here.
+	 *
+	 * @param int $human_id
+	 */
 	public function get_matching_humans_for_human( int $human_id ) {
 
 	}
 
+	/**
+	 * Set whether a Human has met another Human.
+	 *
+	 * @TODO: Set post meta with an array of post IDs (human IDs) that a Human has met. [ 97, 68 ]
+	 *
+	 * @param array $human_id
+	 */
 	public function set_human_has_met_human( array $human_id ) {
 
 	}
 
+	/**
+	 * Set Human has Cancelled.
+	 *
+	 * @TODO: Set post meta with an array of user IDs mapped to a count for each user the Human has cancelled against. [ 97 => 7, 68 => 1 ]
+	 *
+	 * @param int $canceler_human_id
+	 * @param int $canceled_human_id
+	 */
 	public function set_human_has_cancelled( int $canceler_human_id, int $canceled_human_id ) {
 
 	}
