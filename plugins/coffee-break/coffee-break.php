@@ -96,7 +96,7 @@ class Coffee_Break {
 	 * @return array
 	 */
 	public function get_humans() {
-		$human_query  = new WP_Query( [
+		$human_query = new WP_Query( [
 			'post_type' => self::POST_TYPE_HUMAN,
 		] );
 
