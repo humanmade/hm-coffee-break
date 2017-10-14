@@ -36,13 +36,18 @@ class Coffee_Break {
 			$this,
 			'meta_box_timezone'
 		], self::POST_TYPE_HUMAN, 'side', 'default' );
+
+		add_meta_box( 'human-availability', __( 'Human Availability' ), [
+			$this,
+			'meta_box_availability'
+		], self::POST_TYPE_HUMAN, 'side', 'default' );
 	}
 
 	/**
 	 * HTML Output for TimeZone Meta Box.
 	 */
 	public function meta_box_timezone() {
-		$human_timezone = get_post_meta( get_the_ID(), 'human_timezone', true );
+		$human_timezone = $this->get_timezone_for_human( get_the_ID() );
 
 		$timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
 
@@ -58,13 +63,24 @@ class Coffee_Break {
 	}
 
 	/**
+	 * HTML Output for Availability Meta Box.
+	 */
+	public function meta_box_availability() {
+		$human_availability = $this->get_available_hours_for_human( get_the_ID() );
+
+		wp_nonce_field( basename( __FILE__ ), 'human_meta_box_nonce' );
+
+		echo '<textarea name="human-availability">' . implode( "\n", $human_availability ) . '</textarea>';
+	}
+
+	/**
 	 * Action for Saving Meta Box data.
 	 *
 	 * @param $post_id
 	 */
 	public function action_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['human_meta_box_nonce'] ) ||
-			 ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
+		     ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
 			return;
 		}
 
@@ -76,9 +92,14 @@ class Coffee_Break {
 			return;
 		}
 
-
 		if ( isset( $_POST['human-timezone'] ) ) {
-			update_post_meta( $post_id, 'human_timezone', wp_filter_post_kses( $_POST['human-timezone'] ) );
+			$this->set_timezone_for_human( $post_id, $_POST['human-timezone'] );
+		}
+
+		if ( isset( $_POST['human-availability'] ) ) {
+			$available_times = explode( ' ', wp_filter_post_kses( $_POST['human-availability'] ) );
+
+			$this->set_available_hours_for_human( $post_id, $available_times );
 		}
 	}
 
@@ -95,7 +116,7 @@ class Coffee_Break {
 	/**
 	 * Create human endpoint.
 	 *
-	 * @TODO: Create Human (no auth for now).
+	 * @TODO: Create Human post.
 	 */
 	public function create_human() {
 
@@ -147,45 +168,47 @@ class Coffee_Break {
 	/**
 	 * Get TimeZone for Human.
 	 *
-	 * @TODO: Get plaintext timezone for Human.
-	 *
 	 * @param int $human_id
+	 *
+	 * @return array
 	 */
 	public function get_timezone_for_human( int $human_id ) {
+		$timezone = get_post_meta( $human_id, 'human_timezone', true );
+
+		return (array) $timezone;
 	}
 
 	/**
 	 * Set TimeZone for Human.
 	 *
-	 * @TODO: Set plaintext timezone for Human (E.G. Africa/Dijibouti)
-	 *
 	 * @param int $human_id
 	 * @param string $timezone
 	 */
 	public function set_timezone_for_human( int $human_id, string $timezone ) {
+		update_post_meta( $human_id, 'human_timezone', wp_filter_post_kses( $timezone ) );
 	}
 
 	/**
 	 * Get available hours for Human.
 	 *
-	 * @TODO: Return the array of availabity hours.
-	 *
 	 * @param int $human_id
+	 *
+	 * @return array
 	 */
 	public function get_available_hours_for_human( int $human_id ) {
+		$available_hours = get_post_meta( $human_id, 'human_availability', true );
 
+		return (array) $available_hours;
 	}
 
 	/**
 	 * Set available hours for Human.
 	 *
-	 * @TODO: A list of FROM - TO times of availability. For now, we assume that the Human is working Monday - Friday.
-	 *
 	 * @param int $human_id
 	 * @param array $available_times
 	 */
 	public function set_available_hours_for_human( int $human_id, array $available_times ) {
-
+		update_post_meta( $human_id, 'human_availability', $available_times );
 	}
 
 	/**
