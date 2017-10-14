@@ -81,7 +81,7 @@ class Coffee_Break {
 	 */
 	public function action_save_meta_box_data( $post_id ) {
 		if ( ! isset( $_POST['human_meta_box_nonce'] ) ||
-		     ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
+			 ! wp_verify_nonce( $_POST['human_meta_box_nonce'], basename( __FILE__ ) ) ) {
 			return;
 		}
 
@@ -98,7 +98,11 @@ class Coffee_Break {
 		}
 
 		if ( isset( $_POST['human-availability'] ) ) {
-			$available_times = explode( ' ', wp_filter_post_kses( $_POST['human-availability'] ) );
+			// Create array from plaintext input (expected separation by carriage return).
+			$available_times = explode( "\n", wp_filter_post_kses( $_POST['human-availability'] ) );
+
+			// Trim each entry in the array.
+			$available_times = array_map( 'trim', $available_times );
 
 			$this->set_available_hours_for_human( $post_id, $available_times );
 		}
@@ -141,7 +145,8 @@ class Coffee_Break {
 				'ID'           => $human->ID,
 				'username'     => $human->post_name,
 				'user_created' => $human->post_date_gmt,
-				'timezone'     => get_post_meta( $human->ID, 'human_timezone', true ),
+				'timezone'     => $this->get_timezone_for_human( $human->ID ),
+				'availability' => $this->get_available_hours_for_human( $human->ID ),
 			];
 		}
 
@@ -197,9 +202,9 @@ class Coffee_Break {
 	 * @return array
 	 */
 	public function get_available_hours_for_human( int $human_id ) {
-		$available_hours = get_post_meta( $human_id, 'human_availability', true );
+		$available_hours = (array) get_post_meta( $human_id, 'human_availability', true );
 
-		return (array) $available_hours;
+		return $available_hours;
 	}
 
 	/**
