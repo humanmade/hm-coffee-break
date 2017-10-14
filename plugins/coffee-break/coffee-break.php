@@ -38,18 +38,14 @@ class Coffee_Break {
 	 * @return array
 	 */
 	public function get_humans() {
-
-		$query_args = [
+		$human_query  = new WP_Query( [
 			'post_type' => self::POST_TYPE_HUMAN,
-		];
-
-		$posts_query  = new WP_Query();
-		$query_result = $posts_query->query( $query_args );
+		] );
 
 		$humans = [];
 
 		/** @var \WP_Post $human */
-		foreach ( $query_result as $human ) {
+		foreach ( $human_query->posts as $human ) {
 			$humans[] = [
 				'ID'           => $human->ID,
 				'username'     => $human->post_name,
@@ -59,8 +55,6 @@ class Coffee_Break {
 
 		return $humans;
 	}
-
-
 
 	/**
 	 * Register Action for Human Custom Post Type.
