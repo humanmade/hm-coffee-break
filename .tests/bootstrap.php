@@ -18,7 +18,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/content/plugins/hm-coffee-break/coffee-break.php';
+	require dirname( dirname( __FILE__ ) ) . '/coffee-break.php';
 }
 tests_add_filter( 'plugins_loaded', '_manually_load_plugin' );
 
