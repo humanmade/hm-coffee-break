@@ -14,10 +14,6 @@ require_once( __DIR__ . '/inc/slack.php' );
 
 class Coffee_Break {
 
-	const POST_TYPE_HUMAN = 'human';
-	const COFFEE_BREAK_OAUTH_TOKEN = 'xoxp-2178342187-92343588914-255718838464-3851199b80f1d8010d96b569e006452f';
-	const COFFEE_BREAK_BOT_TOKEN = 'xoxb-257455469751-OdZe7IsybZalrtaTOM9rslkB';
-
 	public function __construct() {
 		// Initiate REST Endpoint.
 		add_action( 'rest_api_init', [ $this, 'action_register_endpoints' ] );
@@ -27,6 +23,13 @@ class Coffee_Break {
 
 		// Save Meta Box Data.
 		add_action( 'save_post_human', [ $this, 'action_save_meta_box_data' ], 10, 2 );
+
+		// Include required libs.
+		$this->includes();
+	}
+
+	private function includes() {
+		require_once 'vendor/cmb2/init.php';
 	}
 
 	/**
@@ -133,8 +136,8 @@ class Coffee_Break {
 	 * @return array
 	 */
 	public function get_humans() {
-		$human_query = new WP_Query( [
-			'post_type' => self::POST_TYPE_HUMAN,
+		$human_query  = new WP_Query( [
+			'post_type' => 'human',
 		] );
 
 		$humans = [];
@@ -256,7 +259,7 @@ class Coffee_Break {
 	 */
 	public function action_register_custom_post_type() {
 		register_post_type(
-			self::POST_TYPE_HUMAN,
+			'human',
 			[
 				'labels'               => [
 					'name'          => __( 'Humans', 'hm-coffee-break' ),
