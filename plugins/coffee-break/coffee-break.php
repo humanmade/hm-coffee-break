@@ -17,6 +17,13 @@ class Coffee_Break {
 
 		// Register Custom Post Type.
 		add_action( 'init', [ $this, 'action_register_custom_post_type' ] );
+
+		// Include required libs.
+		$this->includes();
+	}
+
+	private function includes() {
+		require_once 'vendor/cmb2/init.php';
 	}
 
 	/**
