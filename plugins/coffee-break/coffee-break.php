@@ -28,6 +28,7 @@ class Coffee_Break {
 
 	private function includes() {
 		require_once __DIR__ . '/inc/slack.php' ;
+		require_once __DIR__ . '/inc/options.php';
 		require_once __DIR__ . '/vendor/cmb2/init.php';
 	}
 
