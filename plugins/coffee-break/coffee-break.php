@@ -10,8 +10,6 @@
  * @package hm-coffee-break
  */
 
-require_once( __DIR__ . '/inc/slack.php' );
-
 class Coffee_Break {
 
 	public function __construct() {
@@ -24,12 +22,14 @@ class Coffee_Break {
 		// Save Meta Box Data.
 		add_action( 'save_post_human', [ $this, 'action_save_meta_box_data' ], 10, 2 );
 
-		// Include required libs.
+		// Include required files.
 		$this->includes();
 	}
 
 	private function includes() {
-		require_once 'vendor/cmb2/init.php';
+		require_once __DIR__ . '/inc/slack.php' ;
+		require_once __DIR__ . '/inc/options.php';
+		require_once __DIR__ . '/vendor/cmb2/init.php';
 	}
 
 	/**
@@ -39,12 +39,12 @@ class Coffee_Break {
 		add_meta_box( 'human-timezone', __( 'Human Timezone', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_timezone'
-		], self::POST_TYPE_HUMAN, 'normal', 'default' );
+		], 'human', 'normal', 'default' );
 
 		add_meta_box( 'human-availability', __( 'Human Availability', 'hm-coffee-break' ), [
 			$this,
 			'meta_box_availability'
-		], self::POST_TYPE_HUMAN, 'normal', 'default' );
+		], 'human', 'normal', 'default' );
 	}
 
 	/**
