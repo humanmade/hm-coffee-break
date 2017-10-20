@@ -1,26 +1,13 @@
 <?php
 /**
- * PHPUnit bootstrap file
- *
- * @since   0.1.0
- * @package Coffee_Break
+ * Bootstrap the plugin unit testing environment.
  */
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
-if ( ! $_tests_dir ) {
-	$_tests_dir = '/tmp/wordpress-tests-lib';
+$test_root = getenv( 'WP_TESTS_DIR' );
+if ( empty( $test_root ) || getenv( 'DEV_LIB_PATH' ) ) {
+	$test_root = dirname( __FILE__ ) . '/lib';
 }
 
-// Give access to tests_add_filter() function.
-require_once $_tests_dir . '/includes/functions.php';
+require $test_root . '/includes/functions.php';
 
-/**
- * Manually load the plugin being tested.
- */
-function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/coffee-break.php';
-}
-tests_add_filter( 'plugins_loaded', '_manually_load_plugin' );
-
-// Start up the WP testing environment.
-require $_tests_dir . '/includes/bootstrap.php';
+require $test_root . '/includes/bootstrap.php';
