@@ -12,9 +12,6 @@
 class Coffee_Break {
 
 	const POST_TYPE_HUMAN = 'human';
-	const COFFEE_BREAK_OAUTH_TOKEN = 'xoxp-2178342187-92343588914-255718838464-3851199b80f1d8010d96b569e006452f';
-	const COFFEE_BREAK_BOT_TOKEN = 'xoxb-257455469751-OdZe7IsybZalrtaTOM9rslkB';
-
 	public function __construct() {
 		// Initiate REST Endpoint.
 		add_action( 'rest_api_init', [ $this, 'action_register_endpoints' ] );
