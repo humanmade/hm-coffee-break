@@ -71,5 +71,5 @@ script:
     # --standard: Use WordPress as the standard.
     # --extensions: Only sniff PHP files.
     - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n . --standard=vendor/humanmade/coding-standards .; fi
-    - vendor/bin/phpunit --filter HM
+    - phpunit --filter HM
 after_script:
