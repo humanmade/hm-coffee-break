@@ -1,3 +1,7 @@
+[submodule "plugins/slackbot"]
+	path = plugins/slackbot
+	url = git@github.com:humanmade/Slackbot.git
+
 [submodule "plugins/coffee-break/vendor/cmb2"]
 	path = plugins/coffee-break/vendor/cmb2
 	url = git@github.com:CMB2/CMB2.git
