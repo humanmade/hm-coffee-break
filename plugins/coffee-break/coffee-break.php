@@ -11,7 +11,6 @@
 
 class Coffee_Break {
 
-	const POST_TYPE_HUMAN = 'human';
 	public function __construct() {
 		// Initiate REST Endpoint.
 		add_action( 'rest_api_init', [ $this, 'action_register_endpoints' ] );
@@ -37,7 +36,7 @@ class Coffee_Break {
 	 */
 	public function get_humans() {
 		$human_query  = new WP_Query( [
-			'post_type' => self::POST_TYPE_HUMAN,
+			'post_type' => 'human',
 		] );
 
 		$humans = [];
@@ -80,7 +79,7 @@ class Coffee_Break {
 	 */
 	public function action_register_custom_post_type() {
 		register_post_type(
-			self::POST_TYPE_HUMAN,
+			'human',
 			[
 				'labels'     => [
 					'name'          => __( 'Humans', 'coffee' ),
